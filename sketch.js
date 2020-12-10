@@ -34,61 +34,63 @@ ghost.addImage("ghost", ghostImg);
 
 }
 
-function draw(){
-background(0);
-
-if (gameState==="play"){
-
-    if (keyDown("left_arrow")){
-        ghost.x=ghost.x-3;
-    }
-    if(keyDown("right_arrow")){
-        ghost.x = ghost.x + 3;
-      }
-      
-      if(keyDown("space")){
-        ghost.velocityY = -2;
-      }
-    
-      ghost.velocityY = ghost.velocityY + 0.8;
-      
-      if(tower.y > 400)
-      {
-        tower.y = 300
-      }
-    
-  
-    }
-  
-if (doorsGroup.isTouching(ghost))
+function draw()
 {
-doorGroup.destroyEach();
-}
+        background(0);
+
+        if (gameState==="play")
+        {
+
+            if (keyDown("left_arrow")){
+                ghost.x=ghost.x-3;
+            }
+            if(keyDown("right_arrow")){
+                ghost.x = ghost.x + 3;
+            }
+            
+            if(keyDown("space")){
+                ghost.velocityY = -2;
+            }
+            
+            ghost.velocityY = ghost.velocityY + 0.8;
+            
+            if(tower.y > 400)
+            {
+                tower.y = 300
+            }
+            if (doorsGroup.isTouching(ghost))
+            {
+            doorGroup.destroyEach();
+            }
+    
+    
+            if(invisibleBlockGroup.isTouching(ghost) || ghost.y > 600){
+                ghost.destroy();
+                doorsGroup.destroyEach();
+                invisibleBlockGroup.destroyEach     ();
+    
+                gameState="end";
+            }
+            spawnDoors();
+            drawSprites();
+        }
+        
+    
+        if(gameState==="end")
+        {
+            stroke("yellow");
+            fill("yellow");
+            textSize(30);
+            text("Game Over", 230,250)
+
+        }
 
 
-if(invisibleBlockGroup.isTouching(ghost) || ghost.y > 600){
-    ghost.destroy();
-    doorsGroup.destroyEach();
-    invisibleBlockGroup.destroyEach();
 
-    gameState="end";
-}
-
-if(gameState==="end")
-{
-    stroke("yellow");
-    fill("yellow");
-    textSize(30);
-    text("Game Over", 230,250)
-
-}
+          
 
 
-
-    spawnDoors();
-
-
-    drawSprites();
+           
 }
 
 
